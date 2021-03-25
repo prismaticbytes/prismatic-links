@@ -1,0 +1,18 @@
+{% if valid %}
+    <a class="prismaticlinks-container" href="{{ url }}" target="_blank">
+        <div class="prismaticlinks-image">
+            <img src="{{ image_cached ?? image ?? "" }}" alt="">
+        </div>
+        <div class="prismaticlinks-meta">
+            <div class="prismaticlinks-title">
+                {{ title ?? "" }}
+            </div>
+            <div class="prismaticlinks-description">
+                {{ description ?? "" }}
+            </div>
+            <div class="prismaticlinks-domain">
+                {{ domain ?? "" }}
+            </div>
+        </div>
+    </a>
+{% endif %}

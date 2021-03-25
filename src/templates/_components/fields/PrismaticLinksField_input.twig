@@ -1,0 +1,76 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Prismatic Links plugin for Craft CMS 3.x
+ *
+ * PrismaticLinksField Field Input
+ *
+ * @author    Prismatic Bytes
+ * @copyright Copyright (c) 2021 Prismatic Bytes
+ * @link      https://prismaticbytes.com
+ * @package   PrismaticLinks
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+<div class="prismaticlinks-field-container">
+    <div class="prismaticlinks-field-left">
+        <div class="prismaticlinks-input">
+            {{ forms.textField({
+                label: null,
+                instructions: null,
+                value: value.url ?? ""}) }}
+        </div>
+
+        <div class="prismaticlinks-refresh" style="display: none;">
+            <button toggle-prismaticlinks-refresh type="button" title="Refresh preview">
+                <svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="prismaticlinks-field-right">
+        <div class="prismaticlinks-image-selector" style="display: none;">
+            <button type="button" toggle-left>
+                <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+            </button>
+
+            <div counter></div>
+
+            <button type="button" toggle-right>
+                <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="prismaticlinks-preview" style="{% if value and value.title is defined %}{% else %}display: none;{% endif %}">
+            {% if value and value.title is defined %}
+                {% include 'prismatic-links/prismatic-link-template.twig' with value %}
+            {% endif %}
+        </div>
+
+        <div class="prismaticlinks-loading" style="display: none">
+            <svg style="width: 40px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+        </div>
+
+        <div class="prismaticlinks-error" style="display: none">
+
+        </div>
+    </div>
+</div>
+
+{{ forms.hidden({
+    label: null,
+    instructions: null,
+    id: name,
+    name: name,
+    value: value}) }}
+

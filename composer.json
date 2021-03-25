@@ -1,0 +1,50 @@
+{
+    "name": "prismaticbytes/prismatic-links",
+    "description": "Link previews field",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "prismatic links"
+    ],
+    "support": {
+        "docs": "https://github.com/prismaticbytes/prismatic-links/blob/master/README.md",
+        "issues": "https://github.com/prismaticbytes/prismatic-links/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Prismatic Bytes",
+            "homepage": "https://prismaticbytes.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0",
+        "dusterio/link-preview": "1.2.17"
+    },
+    "require-dev": {
+      "craftcms/cms": "^3.2.0",
+      "codeception/codeception": "^3.0",
+      "vlucas/phpdotenv": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "prismaticbytes\\prismaticlinks\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Prismatic Links",
+        "handle": "prismatic-links",
+        "developer": "Prismatic Bytes",
+        "developerUrl": "https://prismaticbytes.com",
+        "documentationUrl": "https://github.com/prismaticbytes/prismatic-links/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/prismaticbytes/prismatic-links/master/CHANGELOG.md",
+        "components": {
+            "prismaticLinksService": "prismaticbytes\\prismaticlinks\\services\\PrismaticLinksService"
+        },
+        "class": "prismaticbytes\\prismaticlinks\\PrismaticLinks"
+    }
+}

@@ -1,0 +1,145 @@
+/**
+ * Prismatic Links plugin for Craft CMS
+ *
+ * PrismaticLinksField Field CSS
+ *
+ * @author    Prismatic Bytes
+ * @copyright Copyright (c) 2021 Prismatic Bytes
+ * @link      https://prismaticbytes.com
+ * @package   PrismaticLinks
+ * @since     1.0.0
+ */
+.prismaticlinks-container,
+.prismaticlinks-container:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.prismaticlinks-container:visited {
+    color: inherit;
+}
+
+.prismaticlinks-container,
+.prismaticlinks-loading {
+    display: flex;
+    /*background: #fff;*/
+    /*box-shadow: rgba(205, 216, 228, 0.25) 0px 0px 0px 1px, rgba(205, 216, 228, 0.5) 0px 2px 12px 0px, 0 0 0 1px rgba(205, 216, 228, 0.25), 0 2px 12px rgba(205, 216, 228, 0.5);*/
+    border-radius: 5px;
+    border: 1px solid rgba(96, 125, 159, 0.25);
+    background-color: #fbfcfe;
+    overflow: hidden;
+    min-height: 84px;
+}
+
+.prismaticlinks-image {
+    width: 25%;
+    max-width: 150px;
+}
+.prismaticlinks-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.prismaticlinks-meta {
+    width: 75%;
+    padding: 12px;
+}
+.prismaticlinks-meta .prismaticlinks-title {
+   font-weight: bold;
+}
+
+.prismaticlinks-domain {
+    opacity: 0.5;
+    font-size: 13px;
+}
+
+.prismaticlinks-image {
+
+}
+
+.prismaticlinks-field-container {
+    /*display:flex;*/
+}
+
+.prismaticlinks-field-left {
+    /*width: 50%;*/
+}
+
+.prismaticlinks-field-right {
+    /*max-width: 600px;*/
+
+    /*padding-left: 24px;*/
+    position: relative;
+    display: flex;
+}
+
+.prismaticlinks-loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+.prismaticlinks-loading svg {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(360deg);
+    }
+    to {
+        transform:rotate(0deg);
+    }
+}
+
+.prismaticlinks-preview {
+    flex-grow: 1;
+    margin-top: 12px;
+}
+
+.prismaticlinks-preview .prismaticlinks-container {
+    margin-top: 12px;
+}
+
+.prismaticlinks-refresh {
+    flex-shrink: 1;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.prismaticlinks-error {
+    padding: 5px;
+    color: #960000;
+}
+
+.prismaticlinks-field-left {
+    display: flex;
+}
+.prismaticlinks-input {
+    flex-grow: 1;
+}
+
+.prismaticlinks-image-selector {
+    display: flex;
+    position: absolute;
+    top: 30px;
+    left: 3px;
+    color: #fff;
+    background: rgba(0,0,0,0.25);
+    border-radius: 3px;
+    align-items: center;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+.prismaticlinks-image-selector svg {
+    margin-top: 2px;
+    color: #fff;
+}
+
+.prismaticlinks-image-selector button:disabled {
+    opacity: 0.5;
+}
