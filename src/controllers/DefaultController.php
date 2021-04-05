@@ -78,17 +78,9 @@ class DefaultController extends Controller
     {
         $url = $this->request->get('url');
 
-        $urlParts = parse_url($url);
-
-
         // Get previews from all available parsers
         try {
-            $previewClient = new \Dusterio\LinkPreview\Client($this->request->get('url'));
-            // $previews = $previewClient->getPreviews();
-
-            // Get a preview from specific parser
-            $preview = $previewClient->getPreview('general');
-
+            $data = PrismaticLinks::getInstance()->prismaticLinksService->fetchURL($url);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             if ($e->getCode() === 404) {
                 return $this->asJson([
@@ -112,28 +104,7 @@ class DefaultController extends Controller
             ])->setStatusCode(400);
         }
 
-        // Convert output to array
-        $preview = $preview->toArray();
-
-        if (strlen($preview['description']) > 200) {
-            $preview['description'] = substr(
-                $preview['description'],
-                0,
-                strrpos(substr($preview['description'], 0, 200), ' '))
-                . '...';
-        }
-
-        array_unshift($preview['images'], $preview['cover']);
-
-        return $this->asJson([
-            'url'         => $this->request->get('url'),
-            'image'       => $preview['cover'] ?? null,
-            'title'       => $preview['title'] ?? null,
-            'description' => $preview['description'] ?? null,
-            'domain'      => $urlParts['host'],
-            'images'      => $preview['images'] ?? [],
-            'valid'      => true,
-        ]);
+        return $this->asJson($data);
     }
 
 
@@ -146,7 +117,6 @@ class DefaultController extends Controller
         $data = json_decode($this->request->get('data'), true);
 
         return $this->renderTemplate('prismatic-links/prismatic-link-template.twig', $data, View::TEMPLATE_MODE_CP);
-
     }
 
 }

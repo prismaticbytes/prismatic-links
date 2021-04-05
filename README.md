@@ -111,6 +111,32 @@ The images are stored in Craft's `storage` path as `storage/prismaticlinks`.
 
 Be sure to take this into account in your deployment strategy if you want to ensure these files are not deleted.
 
+### Runtime template method
+
+This method will fetch the data and render the template HTML at runtime.
+
+⚠️ Do not use this method in your main templates eg. home page. Execution of remote calls to external sites will cause slow page loads and potentially hang or cause timeouts on your site.
+
+✅ Create a template fragment to be loaded via AJAX eg. `entries/url-preview/{entry_id}` and use javascript to load the template async  eg. `$.load("entries/url-preview/12345")`
+
+```twig
+{{ craft.prismaticLinks.fetch(url, template, cacheDuration)|raw }}
+
+url            # the URL to fetch
+template       # the template to render
+cacheDuration  # the duration of the cache in seconds
+                 null: the cache default will be used
+                 0: infinity
+                 -1: disabled
+```
+
+
+```twig 
+{{ craft.prismaticLinks.fetch('https://www.github.com')|raw }}
+{{ craft.prismaticLinks.fetch('https://www.nytimes.com', 'test-template')|raw }}
+{{ craft.prismaticLinks.fetch('https://www.nytimes.com', 'test-template', 0)|raw }}
+```
+
 ---------------
 
 Brought to you by [Prismatic Bytes](https://prismaticbytes.com)

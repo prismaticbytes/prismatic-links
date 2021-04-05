@@ -11,6 +11,7 @@
 namespace prismaticbytes\prismaticlinks;
 
 use craft\events\RegisterTemplateRootsEvent;
+use craft\web\twig\variables\CraftVariable;
 use craft\web\View;
 use prismaticbytes\prismaticlinks\services\PrismaticLinksService as PrismaticLinksServiceService;
 use prismaticbytes\prismaticlinks\fields\PrismaticLinksField as PrismaticLinksFieldField;
@@ -25,6 +26,8 @@ use craft\services\Fields;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 
+use prismaticbytes\prismaticlinks\services\PrismaticLinksService;
+use \prismaticbytes\prismaticlinks\variables\PrismaticLinksVariable;
 use yii\base\Event;
 
 /**
@@ -41,7 +44,7 @@ use yii\base\Event;
  * @package   PrismaticLinks
  * @since     1.0.0
  *
- * @property  PrismaticLinksServiceService $prismaticLinksService
+ * @property  PrismaticLinksService $prismaticLinksService
  */
 class PrismaticLinks extends Plugin
 {
@@ -151,6 +154,17 @@ class PrismaticLinks extends Plugin
             View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
             function(RegisterTemplateRootsEvent $event) {
                 $event->roots['prismatic-links'] = __DIR__ . '/templates';
+            }
+        );
+
+        // Register our variables
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('prismaticLinks', PrismaticLinksVariable::class);
             }
         );
 
