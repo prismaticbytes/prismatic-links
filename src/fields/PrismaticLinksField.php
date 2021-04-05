@@ -118,15 +118,14 @@ class PrismaticLinksField extends Field
     {
         $data = json_decode($value, true) ?? [];
 
-        $data['valid'] = $data['valid'] ?? null;
-        $data['image'] = $data['image'] ?? null;
+        $data['valid']        = $data['valid'] ?? null;
+        $data['image']        = $data['image'] ?? null;
         $data['image_cached'] = null;
-        $data['title'] = $data['title'] ?? null;
-        $data['domain'] = $data['domain'] ?? null;
-        $data['description'] = $data['description'] ?? null;
-        $data['images'] = $data['images'] ?? [];
-        $data['url'] = $data['url'] ?? null;
-
+        $data['title']        = $data['title'] ?? null;
+        $data['domain']       = $data['domain'] ?? null;
+        $data['description']  = $data['description'] ?? null;
+        $data['images']       = $data['images'] ?? [];
+        $data['url']          = $data['url'] ?? null;
 
         if (isset($data['image'])) {
             if (static::cacheFileExists($data['image'])) {

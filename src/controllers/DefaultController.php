@@ -10,6 +10,7 @@
 
 namespace prismaticbytes\prismaticlinks\controllers;
 
+use finfo;
 use prismaticbytes\prismaticlinks\fields\PrismaticLinksField;
 use prismaticbytes\prismaticlinks\PrismaticLinks;
 
@@ -57,10 +58,14 @@ class DefaultController extends Controller
     {
         $slug = $this->request->get('file');
         if (PrismaticLinksField::cacheFileExists($slug)) {
-            $mime = mime_content_type(PrismaticLinksField::getCachePath($slug));
-            if ($mime) {
-                header('Content-Type: ' . $mime);
+
+            $finfo = new finfo();
+            $fileinfo = $finfo->file(PrismaticLinksField::getCachePath($slug), FILEINFO_MIME);
+
+            if ($fileinfo) {
+                header('Content-Type: ' . $fileinfo);
             }
+
             readfile(PrismaticLinksField::getCachePath($slug));
         }
     }

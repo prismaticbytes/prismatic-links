@@ -5,6 +5,7 @@ namespace prismaticbytes\prismaticlinks\jobs;
 use Craft;
 use craft\helpers\FileHelper;
 use craft\mail\Message;
+use finfo;
 use prismaticbytes\prismaticlinks\fields\PrismaticLinksField;
 
 class StoreImage extends \craft\queue\BaseJob
@@ -19,7 +20,25 @@ class StoreImage extends \craft\queue\BaseJob
         if (!PrismaticLinksField::cacheFileExists($this->url)) {
             $data = file_get_contents($this->url);
 
-            file_put_contents(PrismaticLinksField::getCachePath($this->url), $data);
+            $fh = tmpfile();
+            $path = stream_get_meta_data($fh)['uri'];
+
+            fwrite($fh, $data);
+
+            $finfo = new finfo();
+            $fileinfo = $finfo->file($path, FILEINFO_MIME);
+
+            fclose($fh);
+
+            if (preg_match('#^image/#', $fileinfo)) {
+
+                file_put_contents(PrismaticLinksField::getCachePath($this->url), $data);
+
+            } else {
+                Craft::info("File is not an image");
+                return;
+            }
+
         }
     }
 
