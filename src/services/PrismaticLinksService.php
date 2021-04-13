@@ -86,9 +86,19 @@ class PrismaticLinksService extends Component
 
         array_unshift($preview['images'], $preview['cover']);
 
+        $preview['images'] = array_map(function ($image) use ($urlParts) {
+            if (preg_match('#^/#', $image)) {
+                $image = $urlParts['scheme'] . '://' . $urlParts['host'] . $image;
+            } else if (!preg_match('#^http#', $image)) {
+                $image = $urlParts['scheme'] . '://' . $urlParts['host'] . rtrim($urlParts['path'], "/") . "/" . $image;
+            }
+
+            return $image;
+        }, $preview['images']);
+
         return [
             'url'         => $url,
-            'image'       => $preview['cover'] ?? null,
+            'image'       => $preview['images'][0] ?? null,
             'title'       => $preview['title'] ?? null,
             'description' => $preview['description'] ?? null,
             'domain'      => $urlParts['host'],
